@@ -6,8 +6,14 @@ import data.calc
 import pandas as pd
 from loguru import logger
 
+from werkzeug.middleware.proxy_fix import ProxyFix
+
+
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
+#из-за того, что перед flask'ом стоит angie ip посетителя не опрделяется. 
+#Нейронка говорит, что это должно решить проблему
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
 reader = geoip2.database.Reader("data/dbip.mmdb")
 db = Database()
 
