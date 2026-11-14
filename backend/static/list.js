@@ -4,7 +4,7 @@ var list        = document.getElementById('list');
 var sortSelect  = document.getElementById('sortSelect');
 var countEl     = document.getElementById('count');
 
-var allSystems = [];
+var json = [];
 var currentSort = { field: null, dir: 'desc' };
 
 function starColor(teff) {
@@ -50,14 +50,14 @@ function getTemperature(sys) {
 }
 
 function getSortValue(sys, field) {
-  if (field === 'habitability') return getMaxHabitability(sys);
-  if (field === 'distance')     return getDistance(sys);
-  if (field === 'temperature')  return getTemperature(sys);
+  if (field === 'habitability') return sys.esi;
+  if (field === 'distance')     return sys.sy_dist;
+  if (field === 'temperature')  return sys.st_teff;
   return null;
 }
 
 function sortedSystems() {
-  var arr = allSystems.slice();
+  var arr = json.slice();
   if (!currentSort.field) return arr;
 
   var sign = currentSort.dir === 'asc' ? 1 : -1;
@@ -88,19 +88,19 @@ function render() {
   countEl.textContent = 'систем: ' + systems.length;
 
   systems.forEach(function (sys) {
-    var st       = sys.star || {};
-    var planets  = sys.planets || [];
-    var maxHab   = getMaxHabitability(sys);
-    var distance = getDistance(sys);
-    var color    = starColor(st.teff);
+    var st       = sys.hostname || "";
+    var planets  = sys.planets || "";
+    var maxHab   = sys.esi;
+    var distance = sys.sy_dist;
+    var color    = starColor(sys.st_teff);
 
     var starParts = [];
-    if (st.spectralType) starParts.push(st.spectralType);
-    if (st.teff != null) starParts.push(st.teff + ' K');
+    if (sys.st_spectype) starParts.push(sys.st_spectype);
+    if (sys.teff != null) starParts.push(sys.teff + ' K');
     if (distance != null && distance > 0) starParts.push(distance + ' пк');
     var starDesc = starParts.join(' · ') || '—';
 
-    var planetNames = planets.map(function (p) { return p.name; }).join(', ') || '—';
+    var planetNames = sys.planet_names || '—';
 
     var habHtml = maxHab != null
       ? '<span class="max-hab">обит. ≤ ' + maxHab.toFixed(2) + '</span>'
@@ -108,15 +108,15 @@ function render() {
 
     var a = document.createElement('a');
     a.className = 'system-row';
-    a.href = 'system.html?i=' + sys._idx;
+    a.href = 'system?i=' + sys.hostname;
     a.innerHTML =
       '<div class="head">' +
         '<span class="star-dot" style="background:' + color + ';color:' + color + '"></span>' +
-        '<span class="sys-name">' + escapeHtml(sys.name || 'Система ' + (sys._idx + 1)) + '</span>' +
+        '<span class="sys-name">' + escapeHtml(sys.hostname || 'Безымянная система') + '</span>' +
         habHtml +
       '</div>' +
       '<div class="meta">Звезда: ' + escapeHtml(starDesc) + '</div>' +
-      '<div class="planets">' + planets.length + ' план. · ' + escapeHtml(planetNames) + '</div>';
+      '<div class="planets">' + planets + ' план. · ' + escapeHtml(planetNames) + '</div>';
 
     list.appendChild(a);
   });
@@ -135,13 +135,8 @@ function onSortChange() {
 
 async function init() {
   try {
-    var r = await fetch('./systems.json', { cache: 'no-store' });
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    var json = await r.json();
-    allSystems = (json.systems || []).map(function (s, i) {
-      s._idx = i;   // запоминаем исходный индекс для ссылки system.html?i=N
-      return s;
-    });
+    json = await $.getJSON("/get_systems");
+    
     sortSelect.addEventListener('change', onSortChange);
     render();
   } catch (e) {

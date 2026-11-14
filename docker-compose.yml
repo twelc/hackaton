@@ -25,6 +25,7 @@ services:
         max-file: "5"
 
   postgres:
+    container_name: postgres
     image: postgres:latest
     environment:
       POSTGRES_DB: "hackaton"

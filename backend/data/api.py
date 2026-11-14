@@ -14,8 +14,8 @@ def load():
         "pl_name,hostname,discoverymethod,disc_year,pl_controv_flag," #info \
         "pl_rade,pl_bmasse,pl_bmassprov,pl_dens,pl_insol,pl_eqt," #esi \
         "pl_orbper,pl_orbsmax,pl_orbeccen,ra,dec," 
-        "st_teff,st_lum,st_rad,st_mass,st_spectype,st_age,st_met,sy_snum,sy_pnum" #system&star \
-        "+from+ps&format=csv"
+        "st_teff,st_lum,st_rad,st_mass,st_spectype,st_age,st_met,sy_snum,sy_pnum,sy_dist" #system&star \
+        "+from+pscomppars&format=csv"
         )
     
     if r.status_code != 200:
@@ -35,7 +35,9 @@ def load():
             st_rad=('st_rad', 'first'),
             st_mass=('st_mass', 'first'),
             st_met=('st_met', 'first'),
-            st_spectype=('st_spectype', 'first')
+            sy_dist=('sy_dist', 'first'),
+            st_spectype=('st_spectype', 'first'),
+            planet_names=('pl_name', ', '.join)
             )
     )
 

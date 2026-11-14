@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -8,22 +8,35 @@
 
 <svg id="scene" viewBox="0 0 1920 1080" preserveAspectRatio="xMinYMid meet"
      style="display:block;width:100vw;height:100vh">
+  <defs id="tintDefs"></defs>
   <circle id="star" cx="0" cy="540" r="540" fill="#ffd060" />
   <line x1="560" y1="540" x2="1900" y2="540" stroke="#333" stroke-width="1" />
   <g id="planets"></g>
 </svg>
 
-<a href="index.html"
+<a href="/"
    style="position:fixed;top:8px;left:8px;color:#888;font:13px system-ui,sans-serif;z-index:10;text-decoration:none">
   ← к списку
 </a>
 
-<label style="position:fixed;top:8px;right:8px;background:rgba(0,0,0,.8);padding:6px 10px;color:#ccc;font:13px system-ui,sans-serif;z-index:10">
-  <input type="checkbox" id="logScale" checked> лог
-</label>
+<div style="position:fixed;top:8px;right:8px;background:rgba(0,0,0,.8);padding:8px 12px;color:#ccc;font:13px system-ui,sans-serif;z-index:10;display:flex;flex-direction:column;gap:6px;border-radius:4px;min-width:170px">
+  <label style="display:flex;align-items:center;gap:6px">
+    <input type="checkbox" id="logScale" checked> лог
+  </label>
+  <label style="display:flex;align-items:center;gap:6px">
+    ×<span id="scaleValue" style="min-width:2.4em;text-align:right;font-family:ui-monospace,monospace">1.0</span>
+    <input type="range" id="planetScale" min="1" max="10" step="0.1" value="1"
+           style="width:100px;cursor:pointer">
+  </label>
+</div>
 
 <pre id="info"
      style="position:fixed;bottom:8px;right:8px;background:rgba(0,0,0,.8);padding:8px 12px;color:#ccc;font:12px monospace;margin:0;z-index:10;white-space:pre"></pre>
+
+<script
+  src="https://code.jquery.com/jquery-4.0.0.min.js"
+  integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao="
+  crossorigin="anonymous"></script>
 
 <script src="/static/app.js"></script>
 </body>

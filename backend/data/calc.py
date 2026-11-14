@@ -65,7 +65,7 @@ def get_info(ra:float,dec:float, lat:float, lon:float):
             status="восходящая и заходящая"
 
     #пиковая видимость в этот месяц, хорошо видно в промежутке [month-2;month+2]
-    month = (9+(ra/30)) % 12 
+    month = int((9+(ra/30)) % 12 )
 
     #считаем местное звездное время (там пизда какая-то)
     utc = datetime.datetime.now().timestamp()
