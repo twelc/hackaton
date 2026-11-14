@@ -8,6 +8,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     pip3 install -r requirements.txt
 
 COPY . .
+COPY ./static ./static
+COPY ./templates ./templates
 
 ENV FLASK_APP main.py
 ENV FLASK_ENV development
@@ -15,22 +17,5 @@ ENV FLASK_RUN_PORT 3000
 ENV FLASK_RUN_HOST 0.0.0.0
 
 EXPOSE 3000
-
-CMD ["flask", "run"]
-
-FROM builder AS dev-envs
-
-RUN <<EOF
-apk update
-apk add git
-EOF
-
-RUN <<EOF
-addgroup -S docker
-adduser -S --shell /bin/bash --ingroup docker vscode
-EOF
-
-# install Docker tools (cli, buildx, compose)
-COPY --from=gloursdocker/docker / /
 
 CMD ["flask", "run"]
