@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Экзопланетная система</title>
+</head>
+<body style="margin:0;overflow:hidden;background:#000">
+
+<svg id="scene" viewBox="0 0 1920 1080" preserveAspectRatio="xMinYMid meet"
+     style="display:block;width:100vw;height:100vh">
+  <circle id="star" cx="0" cy="540" r="540" fill="#ffd060" />
+  <line x1="560" y1="540" x2="1900" y2="540" stroke="#333" stroke-width="1" />
+  <g id="planets"></g>
+</svg>
+
+<a href="index.html"
+   style="position:fixed;top:8px;left:8px;color:#888;font:13px system-ui,sans-serif;z-index:10;text-decoration:none">
+  ← к списку
+</a>
+
+<label style="position:fixed;top:8px;right:8px;background:rgba(0,0,0,.8);padding:6px 10px;color:#ccc;font:13px system-ui,sans-serif;z-index:10">
+  <input type="checkbox" id="logScale" checked> лог
+</label>
+
+<pre id="info"
+     style="position:fixed;bottom:8px;right:8px;background:rgba(0,0,0,.8);padding:8px 12px;color:#ccc;font:12px monospace;margin:0;z-index:10;white-space:pre"></pre>
+
+<script src="app.js"></script>
+</body>
+</html>

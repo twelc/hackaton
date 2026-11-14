@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Экзопланетные системы — список</title>
+<style>
+  body {
+    margin: 0; background: #0a0a0a; color: #ddd;
+    font: 14px system-ui, sans-serif;
+    padding: 24px 16px;
+  }
+  h1 {
+    max-width: 1100px; margin: 0 auto 12px;
+    font-weight: 400; font-size: 18px; color: #fff;
+  }
+  .toolbar {
+    max-width: 1100px; margin: 0 auto 16px;
+    display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+    font-size: 13px;
+  }
+  .toolbar select {
+    background: #0a0a0a; color: #ccc;
+    border: 1px solid #333; padding: 5px 10px;
+    border-radius: 4px; font: inherit; cursor: pointer;
+    outline: none;
+  }
+  .toolbar select:hover { border-color: #555; }
+  .toolbar select:focus { border-color: #6cb0e0; }
+  #list { max-width: 1100px; margin: 0 auto; }
+  .system-row {
+    display: block;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+  }
+  .system-row:hover { background: #141414; }
+  .head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 6px;
+  }
+  .star-dot {
+    width: 14px; height: 14px; border-radius: 50%;
+  }
+  .sys-name { font-weight: 500; color: #fff; font-size: 15px; }
+  .max-hab {
+    margin-left: auto;
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+<h1>Экзопланетные системы</h1>
+
+<div class="toolbar">
+  <label for="sortSelect">Сортировка:</label>
+  <select id="sortSelect">
+    <option value="">По умолчанию</option>
+    <option value="habitability:desc">Обитаемость ↓ (высокая сначала)</option>
+    <option value="habitability:asc">Обитаемость ↑ (низкая сначала)</option>
+    <option value="distance:asc">Расстояние ↑ (близкие сначала)</option>
+    <option value="distance:desc">Расстояние ↓ (далёкие сначала)</option>
+    <option value="temperature:desc">Температура ↓ (горячие сначала)</option>
+    <option value="temperature:asc">Температура ↑ (холодные сначала)</option>
+  </select>
+  <span class="count" id="count"></span>
+</div>
+
+<div id="list"></div>
+<script src="list.js"></script>
+</body>
+</html>
