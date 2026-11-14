@@ -1,0 +1,29 @@
+events {
+
+}
+
+http {
+
+    acme_client letsencrypt https://acme-v02.api.letsencrypt.org/directory;
+    resolver 127.0.0.11;
+
+    server {
+        listen 80;
+        server_name $DOMAIN_URL;
+        return 301 https://$DOMAIN_URL/$request_uri;
+        }
+
+    server {
+        listen       443 ssl;
+
+        server_name $DOMAIN_URL;
+        acme letsencrypt;
+
+        ssl_certificate $acme_cert_letsencrypt;
+        ssl_certificate_key $acme_cert_key_letsencrypt;
+
+        location / {
+                proxy_pass http://web:3000;
+        }
+    }
+}
