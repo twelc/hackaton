@@ -1,5 +1,5 @@
 
-#файл подчистую спиздил с docker/awesome-compose
+#файл подчистую позаимствовал с docker/awesome-compose
 FROM  python:3.14-alpine AS builder
 
 WORKDIR /code

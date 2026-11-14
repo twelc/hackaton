@@ -2,8 +2,9 @@ from sqlalchemy import Engine, create_engine, text
 import pandas as pd
 from typing import Literal
 
+#вообще должен был быть нормальный конфиг, но времени на него нет
 username='admin'
-password='admin'
+password='admin' #доступ к бд буквально в публичном репозитории, хаха
 database='hackaton'
 host='postgres'
 port='5432'
