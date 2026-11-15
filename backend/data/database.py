@@ -16,9 +16,11 @@ class Database:
         self.make_engine()
 
     def make_engine(self):
-        self.engine=create_engine('postgresql+psycopg2://{}:{}@{}:{}/{}'.format(username, password, host, port,database))
+        self.engine=create_engine('postgresql+psycopg2://{}:{}@{}:{}/{}'.format(username, password, host, port,database),
+                                  pool_size=5, max_overflow=5, pool_pre_ping=True)
 
     def get_planet_data(self, planet_id) -> pd.DataFrame:
+        
         return   pd.read_sql_query(text("select * from planets where pl_name = :name"), 
                                    self.engine, params={"name": planet_id})
 
