@@ -31,7 +31,10 @@ services:
       POSTGRES_DB: "hackaton"
       POSTGRES_USER: "admin"
       POSTGRES_PASSWORD: "admin"
-    
+    deploy:
+      resources:
+        limits:
+          memory: 512M
     #ports:
     #  - "5432:5432"
     restart: always
