@@ -147,7 +147,7 @@ function renderPlanet(planet) {
   if (planet.st_spectype) html += row('Спектральный класс', escapeHtml(planet.st_spectype));
   if (planet.st_teff != null) html += row('Температура звезды', fmt(planet.st_teff, 'K', 0));
   html += '</dl>';
-  html += '<div style="margin-top:12px;color:#888;font-size:13px">'
+  html += '<div style="margin-top:12px;color:#ddd;font-size:14px">'
   html += escapeHtml(planet.message);
   html += '</div>'
 
